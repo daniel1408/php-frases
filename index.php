@@ -4,6 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+
 <html>
     <head>
         <title>Login</title>
@@ -57,7 +58,7 @@ and open the template in the editor.
         
     </body>
 </html>
-
+    
 <?php
 if(@$_GET['go'] == 'logar'){
 	$user = $_POST['usuario'];
@@ -77,10 +78,14 @@ if(@$_GET['go'] == 'logar'){
 
                     $row = $stmt->fetch();
                     if($row['login'] != null){
+                        session_start();
+                        $_SESSION['user'] = $user;
+                        $_SESSION['pwd'] = $pwd;
                         echo "<script>alert('Usuário logado com sucesso.');</script>"; 
-			echo "<meta http-equiv='refresh' content='0, url=./index.php/'>";
+                        header("location: home.php");
                     }else{
-                        echo "<script>alert('Usuário e senha não correspondem.'); history.back();</script>";
+                        echo  "<script>alert('Usuário e senha não correspondem.');</script>";
+                        header("location: index.php");
                     }
                 } catch (PDOException $e) {
                     echo 'ERROR: ' . $e->getMessage();

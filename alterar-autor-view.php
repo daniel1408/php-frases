@@ -4,6 +4,11 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<?php
+    session_start();
+    if(isset($_SESSION['user']) && isset($_SESSION['user'])){
+?>
+
 <html>
     <head>
         <title>Alterar frase</title>
@@ -18,37 +23,40 @@ and open the template in the editor.
         
         <?php
             $id = filter_input(INPUT_GET, "id");    
-            $texto = filter_input(INPUT_GET, "texto");
-            $autor_id = filter_input(INPUT_GET, "autor_id");
+            $nome = filter_input(INPUT_GET, "nome");
+            $nascimento = filter_input(INPUT_GET, "nascimento");
+            $login = filter_input(INPUT_GET, "login");
         ?>
     </head>
     <body>
-        <h2 class="text-center"><b>Adicionar Frase</b></h2>
+        <h2 class="text-center"><b>Alterar dados pessoais</b></h2>
         <hr>
         
         <div class="container">
-            <form action="alterar.php">
+            <form action="alterar-autor.php">
                 <div class="form-group">
                     <input type="hidden" name="id" value="<?php echo $id?>">
                 </div>
                 <div class="form-group">
-                  <label>Frase</label>
-                  <textarea class="form-control" id="texto" name="texto" value="" placeholder="<?php echo $texto?>"></textarea>
+                  <label>Nome</label>
+                  <input type="text" class="form-control" name="nome" id="nome"  value="<?php echo $nome?>"/>
                 </div>
                 <div class="form-group">
-                  <label>Autor da frase</label>
-                  <select class="form-control" id="autor_id" name="autor_id">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                  </select>
+                  <label>Nascimento</label>
+                  <input type="date" class="form-control" name="nascimento" id="nascimento"  value="<?php echo $nascimento?>"/>
+                </div>
+                <div class="form-group">
+                  <label>Login</label>
+                  <input type="text" class="form-control" name="login" id="usuario"  value="<?php echo $login?>"/>
                 </div>
                 
                 <input class="btn btn-info" type="submit" value="Alterar">
             </form>
+            
         </div>
     </body>
 </html>
+<?php
+    } else {
+        header("location: index.php");
+    }

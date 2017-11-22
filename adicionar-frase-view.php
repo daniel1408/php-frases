@@ -4,6 +4,12 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<?php
+    session_start();
+    if(isset($_SESSION['user']) && isset($_SESSION['user'])){
+    $usuario = $_SESSION['user'];
+?>
+
 <html>
     <head>
         <title>Adicionar</title>
@@ -20,28 +26,21 @@ and open the template in the editor.
         <hr>
         
         <div class="container">
-            <form action="adicionar.php">
+            <form action="adicionar-frase.php">
                 <div class="form-group">
                   <label>Frase</label>
                   <textarea class="form-control" id="frase" rows="3" name="frase"></textarea>
                 </div>
                 <div class="form-group">
-                  <label>Autor da frase</label>
-                  <select class="form-control" id="autor_id" name="autor_id">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                  </select>
+                    <input type="hidden" value="<?php echo $_SESSION['user']?>" name="autor">
                 </div>
                 
                 <input class="btn btn-info" type="submit" value="Adicionar">
             </form>
         </div>
-        
-        
-        
     </body>
 </html>
+<?php
+    } else {
+        header("location: index.php");
+    }
