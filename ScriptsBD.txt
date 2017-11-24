@@ -1,3 +1,0 @@
-create table autor(id int primary key auto_increment, nome varchar(100), nascimento varchar(10), senha varchar(100), login varchar(20));
-
-create table frase(id int primary key auto_increment, texto varchar(1000), data varchar(40), autor_id int, autor varchar(100));

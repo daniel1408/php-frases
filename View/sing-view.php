@@ -105,7 +105,7 @@ if(@$_GET['go'] == 'cadastrar'){
                     if($stmt){
                         $stmt->execute();
                         echo "<script>alert('Usuário cadastrado com sucesso.');</script>";
-                        echo "<meta http-equiv='refresh' content='0, ./'>";
+                        echo "<meta http-equiv='refresh' content='0, ../'>";
                         #header("location: home.php");
                     }else{
                         die("Erro:".mysqli_error($stmt));

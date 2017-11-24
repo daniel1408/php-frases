@@ -26,7 +26,7 @@ and open the template in the editor.
         <hr>
         
         <div class="container">
-            <form action="adicionar-frase.php">
+            <form action="../Controller/adicionar-frase.php">
                 <div class="form-group">
                   <label>Frase</label>
                   <textarea class="form-control" id="frase" rows="3" name="frase"></textarea>
@@ -42,5 +42,5 @@ and open the template in the editor.
 </html>
 <?php
     } else {
-        header("location: index.php");
+        header("location: ../index.php");
     }

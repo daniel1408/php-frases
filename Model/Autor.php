@@ -12,12 +12,43 @@
  * @author daniel
  */
 class Autor {
-    public $id;
-    public $nome;
-    public $sobrenome;
-    public $nascimento;
-    public $login;
-    public $senha;
-    public $confirmrSenha;
-    public $email;
+    function getId() {
+        return $this->id;
+    }
+
+    function getNome() {
+        return $this->nome;
+    }
+
+    function getNascimento() {
+        return $this->nascimento;
+    }
+
+    function getLogin() {
+        return $this->login;
+    }
+
+    function getSenha() {
+        return $this->senha;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+    }
+
+    function setNome($nome) {
+        $this->nome = $nome;
+    }
+
+    function setNascimento($nascimento) {
+        $this->nascimento = $nascimento;
+    }
+
+    function setLogin($login) {
+        $this->login = $login;
+    }
+
+    function setSenha($senha) {
+        $this->senha = $senha;
+    }
 }

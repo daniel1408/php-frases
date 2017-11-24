@@ -31,7 +31,7 @@ and open the template in the editor.
             <hr>
 
             <div class="container">
-                <form action="alterar-frase.php">
+                <form action="../Controller/alterar-frase.php">
                     <div class="form-group">
                         <input type="hidden" name="id" value="<?php echo $id?>">
                     </div>
@@ -45,8 +45,7 @@ and open the template in the editor.
             </div>
         </body>
     </html>
-
 <?php
     } else {
-        header("location: index.php");
+        header("location: ../index.php");
     }

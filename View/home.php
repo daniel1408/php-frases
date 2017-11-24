@@ -20,9 +20,9 @@
                 <div class="col-md-12">
                     <div class="jumbotron" style="background-image: url('http://images5.fanpop.com/image/photos/29300000/Joker-Quotes-jack-napier-29338610-1191-670.jpg'); opacity: 1; color: white">
                         <div style="text-decoration: none; color: white; background-color: black; width: 30%">
-                            <a class="btn btn-default" href="minhas-frases.php" style="margin:5px">Minhas Frases</a>
-                            <a class="btn btn-default" href="autores.php" style="margin:5px">Autores</a>
-                            <a class="btn btn-default" href="logout.php" style="margin:6px">Logout</a>
+                            <a class="btn btn-default" href="../View/minhas-frases.php" style="margin:5px">Minhas Frases</a>
+                            <a class="btn btn-default" href="../View/autores.php" style="margin:5px">Autores</a>
+                            <a class="btn btn-default" href="../View/logout.php" style="margin:6px">Logout</a>
                         </div>
                         <h2 style="background-color: black; width: 50%; height: 45px; padding: 5px"><b>Ola, bem vindo <?php echo $_SESSION['user']?></b></h2>
                         <br>
@@ -86,5 +86,5 @@
 </html>
 <?php
     } else {
-        header("location: index.php");
+        header("location: ../index.php");
     }

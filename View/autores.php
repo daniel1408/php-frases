@@ -93,5 +93,5 @@ and open the template in the editor.
 </html>
 <?php
     } else {
-        header("location: index.php");
+        header("location: ../index.php");
     }

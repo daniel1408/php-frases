@@ -50,7 +50,7 @@ and open the template in the editor.
                         </div>
 
                         <input type="submit" value="Entrar" class="btn  btn-info btn-block" id="entrar">
-                        <a href="sing.php" class="btn" style=" margin:6px auto; color:blue; position: relative; float: right"> Criar Conta</a>
+                        <a href="./View/sing-view.php" class="btn" style=" margin:6px auto; color:blue; position: relative; float: right"> Criar Conta</a>
                     </div>
                 </div>
             </div>
@@ -81,11 +81,13 @@ if(@$_GET['go'] == 'logar'){
                         session_start();
                         $_SESSION['user'] = $user;
                         $_SESSION['pwd'] = $pwd;
-                        echo "<script>alert('Usuário logado com sucesso.');</script>"; 
-                        header("location: home.php");
+                        echo "<script>alert('Usuário logado com sucesso.');</script>";
+                        echo "<meta http-equiv='refresh' content='0, ./View/home.php'>";
+                        #header("location: View/home.php");
                     }else{
                         echo  "<script>alert('Usuário e senha não correspondem.');</script>";
-                        header("location: index.php");
+                        echo "<meta http-equiv='refresh' content='0, ./index.php'>";
+                        #header("location: index.php");
                     }
                 } catch (PDOException $e) {
                     echo 'ERROR: ' . $e->getMessage();

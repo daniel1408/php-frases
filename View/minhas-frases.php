@@ -22,9 +22,9 @@ and open the template in the editor.
     
     <body>    
         <div style="background-color: black; color: white">
-            <a class="btn btn-default" href="autores.php" style="margin:5px">Autores</a>
-            <a class="btn btn-default" href="home.php" style="margin:6px">Home</a>
-            <a class="btn btn-default" href="logout.php" style="margin:6px">Logout</a>
+            <a class="btn btn-default" href="../View/home.php" style="margin:5px">Home</a>
+            <a class="btn btn-default" href="../View/autores.php" style="margin:5px">Autores</a>
+            <a class="btn btn-default" href="../View/logout.php" style="margin:6px">Logout</a>
             <span style="margin-left: 40%; font-size: 30px; font-weight: bold">Minhas Frases</span>
         </div>
         
@@ -34,8 +34,6 @@ and open the template in the editor.
                     try {
                         $conn = new PDO('mysql:host=127.0.0.1;dbname=frases', "daniel", "Furiosa");
                         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-                        
                         
                         $stmt2 = $conn->prepare("SELECT * FROM autor Where login = '$usuario'");
                         $stmt2->execute();
@@ -54,14 +52,14 @@ and open the template in the editor.
                             <li class="list-group-item"><?php echo "Nascimento: ". $row['nascimento']?></li>
                             <li class="list-group-item"><?php echo "Login: ". $row['login']?></li>
                         </ul>
-                        <a class="btn btn-warning" href="<?php echo "alterar-autor-view.php?&id=". $row['id'] . "&nome=" . $row['nome'] . "&nascimento=" . $row['nascimento']. "&login=" . $row['login']?>">Editar Informacoes</a>
-                        <a class="btn btn-danger" href="<?php echo "excluir-autor.php?&id=". $row['id']?>">Excluir minha conta</a>
+                        <a class="btn btn-warning" href="<?php echo "../View/alterar-autor-view.php?&id=". $row['id'] . "&nome=" . $row['nome'] . "&nascimento=" . $row['nascimento']. "&login=" . $row['login']?>">Editar Informacoes</a>
+                        <a class="btn btn-danger" href="<?php echo "../Controller/excluir-autor.php?&id=". $row['id']?>">Excluir minha conta</a>
                     </div>
                 </div>
                 
                 <div class="col-md-8">
                     <div style="margin:15px;height: 50px;">
-                        <a href="adicionar-frase-view.php" class="btn btn-default btn-block btn-lg">
+                        <a href="../View/adicionar-frase-view.php" class="btn btn-default btn-block btn-lg">
                             Adicionar
                         </a>
                     </div>
@@ -73,10 +71,10 @@ and open the template in the editor.
                         <div class="card-body">
                             <h4 style="color:black; font: italic  15px/30px Georgia, serif; " class="card-text"><b>Frase: </b> <?php echo $row['texto']?></h4>                            
                             <h6 class="card-subtitle mb-2 text-muted"><b>Data: <?php echo $row['data']?></b></h6>
-                            <h6 class="card-subtitle mb-2 text-muted"><b>Data: <?php echo $row['autor']?></b></h6>
+                            <h6 class="card-subtitle mb-2 text-muted"><b>Autor: <?php echo $row['autor']?></b></h6>
                             <div style="margin: 0 0">
-                                <a class="btn btn-warning" href="<?php echo "alterar-frase-view.php?&id=". $row['id'] . "&texto=" . $row['texto'] . "&data=" . $row['data']. "&autor_id=" . $row['autor_id']?>">Editar</a>
-                                <a class="btn btn-danger" href="<?php echo "excluir-frase.php?&id=". $row['id']?>">Excluir</a>
+                                <a class="btn btn-warning" href="<?php echo "../View/alterar-frase-view.php?&id=". $row['id'] . "&texto=" . $row['texto'] . "&data=" . $row['data']. "&autor_id=" . $row['autor_id']?>">Editar</a>
+                                <a class="btn btn-danger" href="<?php echo "../Controller/excluir-frase.php?&id=". $row['id']?>">Excluir</a>
                             </div>
 
                         </div>
@@ -96,8 +94,7 @@ and open the template in the editor.
             
     </body>
 </html>
-
 <?php
     } else {
-        header("location: index.php");
+        header("location: ../index.php");
     }
