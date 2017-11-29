@@ -21,9 +21,9 @@ and open the template in the editor.
     </head>
     <body>
         <div style="background-color: black; color: white">
-            <a class="btn btn-default" href="minhas-frases.php" style="margin:5px">Minhas Frases</a>
-            <a class="btn btn-default" href="home.php" style="margin:6px">Home</a>
-            <a class="btn btn-default" href="logout.php" style="margin:6px">Logout</a>
+            <a class="btn btn-default" href="../View/list-frases.php" style="margin:5px">Minhas Frases</a>
+            <a class="btn btn-default" href="../View/home.php" style="margin:6px">Home</a>
+            <a class="btn btn-default" href="../View/logout.php" style="margin:6px">Logout</a>
             <span style="margin-left: 20%; font-size: 30px; font-weight: bold">Autores</span>
         </div>
         <div class="container">
@@ -41,17 +41,14 @@ and open the template in the editor.
                     
                     <table class="table table-hover" style="background-color: white">
                     <?php
+                        require_once('../Model/AutorDao.php');
                         try {
-                            $conn = new PDO('mysql:host=127.0.0.1;dbname=frases', "daniel", "Furiosa");
-                            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
                             $parametro = filter_input(INPUT_GET, "parametro");
                             if($parametro){             
-                                $stmt = $conn->prepare("SELECT * FROM autor where nome like '$parametro%' order by id");
+                                $stmt = AutorDao::selectLike($parametro);
                             }else{
-                                $stmt = $conn->prepare('SELECT * FROM autor;');
-                            }
-                            $stmt->execute();
+                                $stmt = AutorDao::selectAll($parametro);
+                            }                            
                     ?>
                     <thead style="background-color: black; color: white">
                       <tr>

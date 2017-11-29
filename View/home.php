@@ -14,15 +14,15 @@
         <title>Banco de Frases</title>
         
     </head>
-    <body style="background-color:#F0EEEE">
+    <body style="background-color:#F0EEEE">        
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="jumbotron" style="background-image: url('http://images5.fanpop.com/image/photos/29300000/Joker-Quotes-jack-napier-29338610-1191-670.jpg'); opacity: 1; color: white">
                         <div style="text-decoration: none; color: white; background-color: black; width: 30%">
-                            <a class="btn btn-default" href="../View/minhas-frases.php" style="margin:5px">Minhas Frases</a>
-                            <a class="btn btn-default" href="../View/autores.php" style="margin:5px">Autores</a>
-                            <a class="btn btn-default" href="../View/logout.php" style="margin:6px">Logout</a>
+                            <a class="btn btn-default" href="../View/list-frases.php" style="margin:5px">Minhas Frases</a>
+                            <a class="btn btn-default" href="../View/list-autores.php" style="margin:5px">Autores</a>
+                            <a class="btn btn-default" href="../View/logout.php" style="margin:6px">Logout</a>                            
                         </div>
                         <h2 style="background-color: black; width: 50%; height: 45px; padding: 5px"><b>Ola, bem vindo <?php echo $_SESSION['user']?></b></h2>
                         <br>
@@ -46,20 +46,18 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="text-center"><b>Frases cadastradas</b></h2>
+                    
                     <?php
-                        try {
-                            $conn = new PDO('mysql:host=127.0.0.1;dbname=frases', "daniel", "Furiosa");
-                            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                        require_once('../Model/FraseDao.php');
+                        require_once('../Model/Frase.php');
 
+                        try {
                             $parametro = filter_input(INPUT_GET, "parametro");
                             if($parametro){             
-                                $stmt = $conn->prepare("SELECT * FROM frase where texto like '$parametro%' order by id");
+                                $stmt = FraseDao::selectLike($parametro);
                             }else{
-                                $stmt = $conn->prepare('SELECT * FROM frase;');
+                                $stmt = FraseDao::selectAll();
                             }
-                            $stmt->execute();
-
-
                             while($row = $stmt->fetch()) {
                     ?>
 

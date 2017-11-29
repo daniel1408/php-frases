@@ -66,7 +66,7 @@ and open the template in the editor.
 
                         <div class="pwstrength_viewport_progress"></div>
                         <input class="btn  btn-info btn-block" type="submit" value="Cadastrar" id="btnCad">
-                        <a href="index.php" class="btn" style=" margin:6px auto; color:blue; position: relative; float: right"> Voltar</a>
+                        <a href="../index.php" class="btn" style=" margin:6px auto; color:blue; position: relative; float: right"> Voltar</a>
                     </div>
                 </div>
             </div>  
@@ -90,28 +90,29 @@ if(@$_GET['go'] == 'cadastrar'){
 	}elseif(empty($pwd)){
 		echo "<script>alert('Preencha todos os campos para se cadastrar.'); history.back();</script>";
 	}else{
+            
+            require_once('../Model/AutorDao.php');
+            require_once('../Model/Autor.php');
+                
             try {
-                $conn = new PDO('mysql:host=127.0.0.1;dbname=frases', "daniel", "Furiosa");
-                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                
-                $stmt = $conn->prepare("SELECT * FROM autor WHERE login = '$user'");
-                $stmt->execute();
-                
+                $stmt = AutorDao::selectForUserName($user);
                 $row = $stmt->fetch();
+                
                 if($row['login'] != null){
                     echo "<script>alert('Usuário já existe.');history.back();</script>"; 
                 }else{
-                    $stmt = $conn->prepare("insert into autor (nome, nascimento, login, senha) values ('$nome','$nascimento','$user','$pwd')");
-                    if($stmt){
-                        $stmt->execute();
-                        echo "<script>alert('Usuário cadastrado com sucesso.');</script>";
-                        echo "<meta http-equiv='refresh' content='0, ../'>";
-                        #header("location: home.php");
-                    }else{
-                        die("Erro:".mysqli_error($stmt));
-                    }
+                    $autor = new Autor();
+                    $autor->setNome($nome);
+                    $autor->setNascimento($nascimento);
+                    $autor->setLogin($user);
+                    $autor->setSenha($pwd);
+                    
+                    AutorDao::insert($autor);
+                    echo "<script>alert('Usuário cadastrado com sucesso.');</script>";
+                    echo "<meta http-equiv='refresh' content='0, ../'>";
                 }
             } catch (PDOException $e) {
+                die("Erro:".mysqli_error($stmt));
                 echo 'ERROR: ' . $e->getMessage();        
             }
 	}

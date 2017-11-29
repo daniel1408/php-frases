@@ -17,13 +17,13 @@ and open the template in the editor.
         <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" />
         <?php header("Content-Type: text/html; charset=ISO-8859-1",true);?>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Banco de Frases</title>
+        <title>Banco de Frases</title>        
     </head>
     
     <body>    
         <div style="background-color: black; color: white">
             <a class="btn btn-default" href="../View/home.php" style="margin:5px">Home</a>
-            <a class="btn btn-default" href="../View/autores.php" style="margin:5px">Autores</a>
+            <a class="btn btn-default" href="../View/list-autores.php" style="margin:5px">Autores</a>
             <a class="btn btn-default" href="../View/logout.php" style="margin:6px">Logout</a>
             <span style="margin-left: 40%; font-size: 30px; font-weight: bold">Minhas Frases</span>
         </div>
@@ -31,18 +31,14 @@ and open the template in the editor.
         <div class="container">
             <div class="row">
                 <?php
+                    require_once('../Model/FraseDao.php');
+                    require_once('../Model/AutorDao.php');
                     try {
-                        $conn = new PDO('mysql:host=127.0.0.1;dbname=frases', "daniel", "Furiosa");
-                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                        
-                        $stmt2 = $conn->prepare("SELECT * FROM autor Where login = '$usuario'");
-                        $stmt2->execute();
+                        $stmt2 = AutorDao::selectForUserName($usuario);
                         $row = $stmt2->fetch();                        
                         $nomeusuario = $row['nome'];
                         
-                        $stmt = $conn->prepare("SELECT * FROM frase where autor = '$nomeusuario'");
-                        $stmt->execute();
-                        
+                        $stmt = FraseDao::selectForAutor($nomeusuario);
                 ?>
                 <div class="col-md-4" style="margin: 1.4% 0;">
                     <div style="position: fixed;" >
@@ -52,14 +48,14 @@ and open the template in the editor.
                             <li class="list-group-item"><?php echo "Nascimento: ". $row['nascimento']?></li>
                             <li class="list-group-item"><?php echo "Login: ". $row['login']?></li>
                         </ul>
-                        <a class="btn btn-warning" href="<?php echo "../View/alterar-autor-view.php?&id=". $row['id'] . "&nome=" . $row['nome'] . "&nascimento=" . $row['nascimento']. "&login=" . $row['login']?>">Editar Informacoes</a>
-                        <a class="btn btn-danger" href="<?php echo "../Controller/excluir-autor.php?&id=". $row['id']?>">Excluir minha conta</a>
+                        <a class="btn btn-warning" href="<?php echo "../View/alterar-autor.php?&id=". $row['id'] . "&nome=" . $row['nome'] . "&nascimento=" . $row['nascimento']. "&login=" . $row['login']?>">Editar Informacoes</a>
+                        <a class="btn btn-danger" href="<?php echo "../Posts/excluir-autor-post.php?&id=". $row['id']?>">Excluir minha conta</a>
                     </div>
                 </div>
                 
                 <div class="col-md-8">
                     <div style="margin:15px;height: 50px;">
-                        <a href="../View/adicionar-frase-view.php" class="btn btn-default btn-block btn-lg">
+                        <a href="../View/adicionar-frase.php" class="btn btn-default btn-block btn-lg">
                             Adicionar
                         </a>
                     </div>
@@ -73,8 +69,8 @@ and open the template in the editor.
                             <h6 class="card-subtitle mb-2 text-muted"><b>Data: <?php echo $row['data']?></b></h6>
                             <h6 class="card-subtitle mb-2 text-muted"><b>Autor: <?php echo $row['autor']?></b></h6>
                             <div style="margin: 0 0">
-                                <a class="btn btn-warning" href="<?php echo "../View/alterar-frase-view.php?&id=". $row['id'] . "&texto=" . $row['texto'] . "&data=" . $row['data']. "&autor_id=" . $row['autor_id']?>">Editar</a>
-                                <a class="btn btn-danger" href="<?php echo "../Controller/excluir-frase.php?&id=". $row['id']?>">Excluir</a>
+                                <a class="btn btn-warning" href="<?php echo "../View/alterar-frase.php?&id=". $row['id'] . "&texto=" . $row['texto'] . "&data=" . $row['data']. "&autor_id=" . $row['autor_id']?>">Editar</a>
+                                <a class="btn btn-danger" href="<?php echo "../Posts/excluir-frase-post.php?&id=". $row['id']?>">Excluir</a>
                             </div>
 
                         </div>

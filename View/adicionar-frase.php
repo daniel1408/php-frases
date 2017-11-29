@@ -26,7 +26,7 @@ and open the template in the editor.
         <hr>
         
         <div class="container">
-            <form action="../Controller/adicionar-frase.php">
+            <form action="../Posts/adicionar-frase-post.php">
                 <div class="form-group">
                   <label>Frase</label>
                   <textarea class="form-control" id="frase" rows="3" name="frase"></textarea>

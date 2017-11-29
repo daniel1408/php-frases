@@ -17,4 +17,5 @@ interface IDao {
     public function  update( $object);
     public function  select( $object);
     public function  selectAll();
+    public function selectLike($texto);
 }

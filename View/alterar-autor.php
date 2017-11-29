@@ -33,7 +33,7 @@ and open the template in the editor.
         <hr>
         
         <div class="container">
-            <form action="../Controller/alterar-autor.php">
+            <form action="../Posts/alterar-autor-post.php">
                 <div class="form-group">
                     <input type="hidden" name="id" value="<?php echo $id?>">
                 </div>
@@ -47,7 +47,7 @@ and open the template in the editor.
                 </div>
                 <div class="form-group">
                   <label>Login</label>
-                  <input type="text" class="form-control" name="login" id="usuario"  value="<?php echo $login?>"/>
+                  <input readonly="readonly" type="text" class="form-control" name="login" id="usuario"  value="<?php echo $login?>"/>
                 </div>
                 
                 <input class="btn btn-info" type="submit" value="Alterar">

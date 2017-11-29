@@ -31,13 +31,13 @@ and open the template in the editor.
             <hr>
 
             <div class="container">
-                <form action="../Controller/alterar-frase.php">
+                <form action="../Posts/alterar-frase-post.php">
                     <div class="form-group">
                         <input type="hidden" name="id" value="<?php echo $id?>">
                     </div>
                     <div class="form-group">
                       <label>Frase</label>
-                      <textarea class="form-control" id="texto" name="texto" value="" placeholder="<?php echo $texto?>"></textarea>
+                      <input type="text" class="form-control" id="texto" name="texto" value="<?php echo $texto?>"></textarea>
                     </div>
 
                     <input class="btn btn-info" type="submit" value="Alterar">

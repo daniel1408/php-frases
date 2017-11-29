@@ -20,12 +20,12 @@ class Autor {
         return $this->nome;
     }
 
-    function getNascimento() {
-        return $this->nascimento;
-    }
-
     function getLogin() {
         return $this->login;
+    }
+
+    function getNascimento() {
+        return $this->nascimento;
     }
 
     function getSenha() {
@@ -40,12 +40,12 @@ class Autor {
         $this->nome = $nome;
     }
 
-    function setNascimento($nascimento) {
-        $this->nascimento = $nascimento;
-    }
-
     function setLogin($login) {
         $this->login = $login;
+    }
+
+    function setNascimento($nascimento) {
+        $this->nascimento = $nascimento;
     }
 
     function setSenha($senha) {

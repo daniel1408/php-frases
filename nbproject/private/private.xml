@@ -4,11 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/opt/lampp/htdocs/frases/Model/AutorDao.php</file>
-            <file>file:/opt/lampp/htdocs/frases/Model/Frase.php</file>
-            <file>file:/opt/lampp/htdocs/frases/Model/IDao.php</file>
-            <file>file:/opt/lampp/htdocs/frases/Controller/adicionar-frase.php</file>
+            <file>file:/opt/lampp/htdocs/frases/Posts/excluir-frase-post.php</file>
+            <file>file:/opt/lampp/htdocs/frases/Posts/alterar-frase-post.php</file>
+            <file>file:/opt/lampp/htdocs/frases/Posts/excluir-autor-post.php</file>
             <file>file:/opt/lampp/htdocs/frases/Model/FraseDao.php</file>
-            <file>file:/opt/lampp/htdocs/frases/Model/Autor.php</file>
         </group>
     </open-files>
 </project-private>
