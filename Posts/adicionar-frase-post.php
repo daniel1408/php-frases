@@ -9,26 +9,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-        $frase = filter_input(INPUT_GET, "frase");
+        $texto = filter_input(INPUT_GET, "frase");
         $autor = filter_input(INPUT_GET, "autor");
         $data = date('d/m/y');
+        
+        spl_autoload_register(function ($class_name) {
+            include '../Model/' . $class_name . '.php';
+        });
+        
         try {
-            ini_set('default_charset', 'UTF-8');
-            $conn = new PDO('mysql:host=127.0.0.1;dbname=frases', "daniel", "Furiosa");
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $conn->query("SET NAMES utf8");
-            
-            $stmt2 = $conn->prepare("SELECT * FROM autor where login = '$autor'");
-            $stmt2->execute();
-            $row = $stmt2->fetch();
+            $stmt = AutorDao::selectForUserName($autor);
+            $row = $stmt->fetch();
             $nomeautor = $row['nome'];
-            $stmt = $conn->prepare("insert into frase (texto, data, autor) values('$frase','$data', '$nomeautor');");
-            if($stmt){
-                $stmt->execute();
-                header("Location: ../View/list-frases.php");
-            }else{
-                die("Erro:".mysqli_error($stmt));
-            }
+            
+            $frase = new Frase();
+            $frase->setTexto($texto);
+            $frase->setData($data);
+            $frase->setAutor($nomeautor);
+            FraseDao::insert($frase);
+            
+            header("Location: ../View/list-frases.php");
+            
         } catch (PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();        
         }

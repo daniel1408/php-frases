@@ -16,8 +16,10 @@ require_once('IDao.php');
 class FraseDao implements IDao{
     
     public function connectionString(){
+        ini_set('default_charset', 'UTF-8');
         $conn = new PDO('mysql:host=127.0.0.1;dbname=frases', "daniel", "Furiosa");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->query("SET NAMES utf8"); 
         return $conn;
     }
     
@@ -30,7 +32,7 @@ class FraseDao implements IDao{
     
     public function select( $object) {
         $conn = FraseDao::connectionString();
-        $stmt = $conn->prepare("SELECT * FROM frase where autor = '$object.nome'");
+        $stmt = $conn->prepare("SELECT * FROM frase where autor = '$object.nome' order by texto");
         $stmt->execute();
         $row = $stmt->fetch();
         return $row;
@@ -38,7 +40,7 @@ class FraseDao implements IDao{
     
     public function insert( $object) {
         $conn = FraseDao::connectionString();
-        $stmt = $conn->prepare("insert into frase (texto, data, autor) values('$object.texto','$object.data', '$object.autor');");
+        $stmt = $conn->prepare("insert into frase (texto, data, autor) values('$object->texto','$object->data', '$object->autor');");
         $stmt->execute();
     }
     
@@ -47,10 +49,23 @@ class FraseDao implements IDao{
         $stmt = $conn->prepare("update frase set texto = '$object->texto', data = '$object->data' where id='$object->id';");    
         $stmt->execute();
     }
+
+    public function updateAutorName( $nome, $newname) {
+        $conn = FraseDao::connectionString();
+        $stmt = $conn->prepare("update frase set autor = '$nome' where autor='$newname';");    
+        $stmt->execute();
+    }    
+    
     
     public function delete( $object) {
         $conn = FraseDao::connectionString();
         $stmt = $conn->prepare("delete from frase where id='$object';");
+        $stmt->execute();
+    }
+    
+    public function deleteForAutor( $object) {
+        $conn = FraseDao::connectionString();
+        $stmt = $conn->prepare("delete from frase where autor='$object'");
         $stmt->execute();
     }
 
@@ -63,7 +78,7 @@ class FraseDao implements IDao{
     
     public function selectForAutor($autorName) {
         $conn = FraseDao::connectionString();
-        $stmt = $conn->prepare("SELECT * FROM frase where autor = '$autorName'");
+        $stmt = $conn->prepare("SELECT * FROM frase where autor = '$autorName' order by texto");
         $stmt->execute();
         return $stmt;
     }

@@ -12,19 +12,20 @@
         $id = filter_input(INPUT_GET, "id");
         $data = date('d/m/y');
 
-        require_once('../Model/FraseDao.php');
-        require_once('../Model/Frase.php');
+        spl_autoload_register(function ($class_name) {
+            include '../Model/' . $class_name . '.php';
+        });
+        
         try {
             $frase = new Frase();
             $frase->setTexto($texto);
             $frase->setData($data);
             $frase->setId($id);
             
-            $stmt = FraseDao::update($autor);
+            FraseDao::update($frase);
             header("Location: ../View/list-frases.php");
 
         } catch (PDOException $e) {
-            die("Erro:".mysqli_error($stmt));
             echo 'ERROR: ' . $e->getMessage();        
         }
 

@@ -13,31 +13,32 @@
         $id = filter_input(INPUT_GET, "id");
         $nome = filter_input(INPUT_GET, "nome");
 
+        spl_autoload_register(function ($class_name) {
+            include '../Model/' . $class_name . '.php';
+        });
+        
         try {
-            ini_set('default_charset', 'UTF-8');
-            $conn = new PDO('mysql:host=127.0.0.1;dbname=frases', "daniel", "Furiosa");
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $conn->query("SET NAMES utf8"); 
-
-            $stmt = $conn->prepare("SELECT * FROM autor where id = '$id'");
-            $stmt->execute();
+            $stmt = AutorDao::select($id);
             $row = $stmt->fetch();
             $nomeautor = $row['nome'];
 
-            $stmt2 = $conn->prepare("update autor set nome = '$nome', nascimento = '$nascimento', login = '$login' where id='$id';");    
-            $stmt3 = $conn->prepare("update frase set autor = '$nome' where autor='$nomeautor';");
+            $autor = new Autor();
+            $autor->setNome($nome);
+            $autor->setNascimento($nascimento);
+            $autor->setLogin($login);
+            $autor->setId($id);
+            
+            AutorDao::update($autor);
+            FraseDao::updateAutorName($nome, $nomeautor);
 
-            if($stmt2){
-                $stmt2->execute();
-                $stmt3->execute();
-                header("Location: ../View/list-frases.php");
-            }else{
-                die("Erro:".mysqli_error($stmt));
-            }
+            header("Location: ../View/list-frases.php");
 
         } catch (PDOException $e) {
+            die("Erro:".mysqli_error($stmt));
             echo 'ERROR: ' . $e->getMessage();        
         }
+        
+        
 } else {
         header("location: ../index.php");
     }

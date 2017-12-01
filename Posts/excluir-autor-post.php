@@ -8,18 +8,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-    $id = filter_input(INPUT_GET, "id");
+        $id = filter_input(INPUT_GET, "id");
 
-        require_once('../Model/AutorDao.php');
+        spl_autoload_register(function ($class_name) {
+            include '../Model/' . $class_name . '.php';
+        });
+        
         try {
-            $stmt = AutorDao::delete($id);
-            header("Location: ../View/list-frases.php");
-
+            $stmt = AutorDao::select($id);
+            $row = $stmt->fetch();
+            $nomeautor = $row['nome'];
+            
+            AutorDao::delete($id);
+            FraseDao::deleteForAutor($nomeautor);
+            
+            header("Location: ../index.php");
         } catch (PDOException $e) {
             die("Erro:".mysqli_error($stmt));
             echo 'ERROR: ' . $e->getMessage();        
         }
-
+        
 } else {
     header("location: index.php");
 }

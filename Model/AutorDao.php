@@ -16,10 +16,12 @@ require_once('IDao.php');
 class AutorDao implements IDao{
     //put your code here
     public function connectionString(){
+        ini_set('default_charset', 'UTF-8');
         $conn = new PDO('mysql:host=127.0.0.1;dbname=frases', "daniel", "Furiosa");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->query("SET NAMES utf8"); 
         return $conn;
-    }
+    }        
     
     public function selectAll() {
         
@@ -33,11 +35,10 @@ class AutorDao implements IDao{
     public function select( $object) {
         $conn = AutorDao::connectionString();
 
-        $stmt = $conn->prepare("SELECT * FROM autor where id = '$object.id'");
+        $stmt = $conn->prepare("SELECT * FROM autor where id = '$object' order by nome");
         $stmt->execute();
-        $row = $stmt->fetch();
         
-        return $row;
+        return $stmt;
     }
     
     public function selectForUserName( $username) {
@@ -66,7 +67,7 @@ class AutorDao implements IDao{
     public function update( $object) {
         $conn = AutorDao::connectionString();
         
-        $stmt = $conn->prepare("update autor set nome = '$object.nome', nascimento = '$object.nascimento', login = '$object.login' where id='$object.id';");    
+        $stmt = $conn->prepare("update autor set nome = '$object->nome', nascimento = '$object->nascimento', login = '$object->login' where id='$object->id';");
         $stmt->execute();
     }
     

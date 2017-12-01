@@ -13,9 +13,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" />
-        <?php header("Content-Type: text/html; charset=ISO-8859-1",true);?>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
         <title>Banco de Frases</title>
         
     </head>
@@ -41,7 +39,10 @@ and open the template in the editor.
                     
                     <table class="table table-hover" style="background-color: white">
                     <?php
-                        require_once('../Model/AutorDao.php');
+                        spl_autoload_register(function ($class_name) {
+                            include '../Model/' . $class_name . '.php';
+                        });
+                        
                         try {
                             $parametro = filter_input(INPUT_GET, "parametro");
                             if($parametro){             

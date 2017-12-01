@@ -10,7 +10,8 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     </head>
     <body style="background-color:#F0EEEE">
         
@@ -91,8 +92,9 @@ if(@$_GET['go'] == 'cadastrar'){
 		echo "<script>alert('Preencha todos os campos para se cadastrar.'); history.back();</script>";
 	}else{
             
-            require_once('../Model/AutorDao.php');
-            require_once('../Model/Autor.php');
+            spl_autoload_register(function ($class_name) {
+                include '../Model/' . $class_name . '.php';
+            });
                 
             try {
                 $stmt = AutorDao::selectForUserName($user);

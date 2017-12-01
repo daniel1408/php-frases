@@ -14,12 +14,7 @@ and open the template in the editor.
         <title>Alterar frase</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  crossorigin="anonymous">
-        
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" />
-        <?php header("Content-Type: text/html; charset=ISO-8859-1",true);?>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
         
         <?php
             $id = filter_input(INPUT_GET, "id");    

@@ -5,7 +5,10 @@
     if(isset($_SESSION['user']) && isset($_SESSION['user'])){
         $id = filter_input(INPUT_GET, "id");
         
-        require_once('../Model/FraseDao.php');
+        spl_autoload_register(function ($class_name) {
+            include '../Model/' . $class_name . '.php';
+        });
+        
         try {
             $stmt = FraseDao::delete($id);
             header("Location: ../View/list-frases.php");
